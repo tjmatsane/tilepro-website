@@ -1,0 +1,271 @@
+from zipfile import ZipFile
+import os
+
+# Create the file structure for the website
+base_dir = '/mnt/data/tiling_website'
+os.makedirs(base_dir, exist_ok=True)
+
+files = {
+    "index.html": """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TilePro Experts | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>TilePro Experts</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero">
+    <div>
+      <h1>Professional Tiling Services</h1>
+      <p>Reliable. Affordable. Guaranteed.</p>
+      <a href="contact.html" class="btn">Get a Free Quote</a>
+    </div>
+  </section>
+  <section>
+    <h2>Welcome to TilePro Experts</h2>
+    <p>We deliver high-quality tiling solutions for homes and businesses throughout South Africa. Whether you're upgrading a kitchen, remodeling a bathroom, or paving an outdoor space, we’re here to help.</p>
+  </section>
+  <footer>
+    <p>&copy; 2025 TilePro Experts. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+""",
+    "about.html": """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | TilePro Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>TilePro Experts</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>About Us</h2>
+    <p>TilePro Experts was founded in 2015 with a mission to deliver quality, durability, and style in every tile. We specialize in residential and commercial tiling with a commitment to precision and customer satisfaction.</p>
+  </section>
+  <footer>
+    <p>&copy; 2025 TilePro Experts. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+""",
+    "services.html": """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | TilePro Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>TilePro Experts</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>Our Services</h2>
+    <ul>
+      <li>Wall & Floor Tiling</li>
+      <li>Bathroom Renovations</li>
+      <li>Outdoor & Paving Tiling</li>
+      <li>Commercial Tiling Projects</li>
+    </ul>
+  </section>
+  <footer>
+    <p>&copy; 2025 TilePro Experts. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+""",
+    "projects.html": """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | TilePro Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>TilePro Experts</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>Our Work</h2>
+    <p>Here are a few highlights of our past projects across bathrooms, kitchens, and outdoor areas.</p>
+    <img src="https://i.imgur.com/f8f2FG1.jpg" alt="Bathroom" width="300">
+    <img src="https://i.imgur.com/oA1nG7C.jpg" alt="Kitchen" width="300">
+    <img src="https://i.imgur.com/5KqWZV7.jpg" alt="Patio" width="300">
+  </section>
+  <footer>
+    <p>&copy; 2025 TilePro Experts. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+""",
+    "contact.html": """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | TilePro Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>TilePro Experts</h2>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="user_name" placeholder="Your Name" required><br><br>
+      <input type="email" name="user_email" placeholder="Your Email" required><br><br>
+      <textarea name="message" placeholder="Your Message" required></textarea><br><br>
+      <button type="submit">Send Message</button>
+    </form>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("YOUR_USER_ID");
+      })();
+
+      document.getElementById("contact-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+          .then(() => alert('Message sent successfully!'),
+                (error) => alert('Failed to send: ' + JSON.stringify(error)));
+      });
+    </script>
+  </section>
+  <footer>
+    <p>&copy; 2025 TilePro Experts. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+""",
+    "style.css": """
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: #fff;
+  padding: 20px;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+.hero {
+  background: url('https://i.imgur.com/okMd1Fy.jpg') no-repeat center center/cover;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+.btn {
+  background: #e67e22;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+section {
+  padding: 60px 20px;
+  width: 90%;
+  margin: auto;
+}
+footer {
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+}
+"""
+}
+
+# Write files
+for filename, content in files.items():
+    with open(os.path.join(base_dir, filename), 'w') as f:
+        f.write(content)
+
+# Create zip file
+zip_path = '/mnt/data/tilepro-website.zip'
+with ZipFile(zip_path, 'w') as zipf:
+    for filename in files:
+        zipf.write(os.path.join(base_dir, filename), arcname=filename)
+
+zip_path
+        
